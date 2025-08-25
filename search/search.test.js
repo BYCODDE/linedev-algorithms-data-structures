@@ -1,8 +1,50 @@
-function linearSearch(id, array) {}
+function linearSearch(id, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].id === id) {
+      return array[i];
+    }
+  }
 
-function binarySearch(id, array) {}
+  return void 0;
+}
 
-test.skip("linear search", function () {
+function binarySearch(id, array) {
+  let min = 0;
+  let max = array.length - 1;
+  let index;
+  let element;
+
+  while (min <= max) {
+    index = Math.floor((min + max) / 2);
+    element = array[index];
+
+    if (element.id < id) {
+      min = index + 1;
+    } else if (element.id > id) {
+      max = index - 1;
+    } else {
+      return element;
+    }
+  }
+
+  return void 0;
+}
+
+// Recursion solution
+// function binarySearch(id, array) {
+//   const mid = Math.floor(array.length / 2);
+//   const midValue = array[mid];
+
+//   if (midValue.id === id) {
+//     return midValue;
+//   } else if (midValue.id < id) {
+//     return binarySearch(id, array.slice(mid + 1));
+//   } else {
+//     return binarySearch(id, array.slice(0, mid));
+//   }
+// }
+
+test("linear search", function () {
   const lookingFor = { id: 5, name: "Giorgi" };
   expect(
     linearSearch(5, [
@@ -24,7 +66,7 @@ test.skip("linear search", function () {
   ).toBe(lookingFor);
 });
 
-test.skip("binary search", function () {
+test("binary search", function () {
   const lookingFor = { id: 23, name: "Bidzina" };
   expect(
     binarySearch(23, [
