@@ -1,15 +1,44 @@
 class ArrayList {
   constructor() {
-    // create needed varibales/values
+    this.length = 0;
+    this.data = {};
   }
 
   // push method
+  push(value) {
+    this.data[this.length] = value;
+    this.length++;
+    return this.length;
+  }
 
   // pop method
+  pop() {
+    const lastItem = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return lastItem;
+  }
 
   // get method
+  get(index) {
+    return this.data[index];
+  }
 
   // delete method
+  delete(index) {
+    const deletedItem = this.data[index];
+    this._collapseTo(index);
+    return deletedItem;
+  }
+  // {0: 1, 1: 2, /2: 3/, 3: 4}
+
+  _collapseTo(index) {
+    for (let i = index; i < this.length - 1; i++) {
+      this.data[i] = this.data[i + 1];
+    }
+    delete this.data[this.length - 1];
+    this.length--;
+  }
 }
 
 describe("ArrayList", function () {
